@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reader Academia - Misión Lengua SdA 1 Plus Ultra</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mha: {
+                            green: '#00A86B',
+                            lightgreen: '#2ECC71',
+                            darkgreen: '#006633',
+                            yellow: '#FFCC00',
+                            orange: '#FF6600',
+                            red: '#E74C3C',
+                            blue: '#2980B9',
+                            darkblue: '#1B2631',
+                            cream: '#F9F9F0',
+                            purple: '#8E44AD'
+                        }
+                    },
+                    fontFamily: {
+                        comic: ['Bangers', 'cursive'],
+                        sans: ['Outfit', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'comic': '4px 4px 0px #000',
+                        'comic-lg': '8px 8px 0px #000',
+                        'comic-sm': '2px 2px 0px #000',
+                        'glow': '0 0 15px rgba(0, 168, 107, 0.6)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .comic-border {
+            border: 3.5px solid #000;
+        }
+        .comic-border-sm {
+            border: 2px solid #000;
+        }
+        .comic-text-shadow {
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+        }
+        .comic-bg-pattern {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+        }
+        .hero-pulse {
+            animation: pulse-glow 2s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px #00A86B; }
+            100% { box-shadow: 0 0 20px #FFCC00, 0 0 30px #00A86B; }
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; background-image: none !important; color: black !important; }
+            .comic-border { border: 1px solid #000 !important; }
+            .shadow-comic, .shadow-comic-lg { box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-900 min-h-screen flex flex-col comic-bg-pattern selection:bg-mha-yellow selection:text-black">
+
+    <!-- Top Header / Bar -->
+    <header class="bg-mha-darkblue text-white comic-border-b border-black sticky top-0 z-40 shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showScreen('welcome')">
+                <div class="bg-mha-yellow text-black font-comic text-2xl px-3 py-1 rounded comic-border shadow-comic transform -rotate-2 hover:rotate-0 transition-transform">
+                    UA 6º
+                </div>
+                <div>
+                    <h1 class="font-comic text-xl sm:text-2xl text-mha-yellow tracking-wide leading-none">MY READER ACADEMIA</h1>
+                    <p class="text-xs font-bold text-slate-300">SdA 1: Misión Lengua Plus Ultra</p>
+                </div>
+            </div>
+            
+            <!-- User Status Header -->
+            <div id="header-user-info" class="hidden sm:flex items-center space-x-4 bg-slate-800/80 px-3 py-1.5 rounded-xl comic-border-sm">
+                <div class="text-right">
+                    <div id="header-student-name" class="font-bold text-sm text-mha-yellow">Héroe en Formación</div>
+                    <div id="header-student-rank" class="text-xs text-slate-300">Rango E (Novato)</div>
+                </div>
+                <div class="w-10 h-10 bg-mha-green text-white font-comic text-xl rounded-full flex items-center justify-center comic-border shadow-comic-sm">
+                    ⚡
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col">
+
+        <!-- 1. SCREEN: WELCOME / SETUP -->
+        <section id="screen-welcome" class="space-y-6 my-auto max-w-3xl mx-auto w-full">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 comic-border shadow-comic-lg relative overflow-hidden">
+                <!-- Decorative Banner -->
+                <div class="absolute -right-12 -top-12 bg-mha-yellow text-black font-comic text-lg font-bold px-12 py-14 rotate-45 comic-border z-0 opacity-20 pointer-events-none">
+                    PLUS ULTRA
+                </div>
+
+                <div class="relative z-10 text-center space-y-4">
+                    <div class="inline-block bg-mha-red text-white font-comic text-lg px-4 py-1 rounded-full comic-border shadow-comic transform -rotate-1 mb-2">
+                        🔥 EXAMEN DE ADMISIÓN UA - 6.º PRIMARIA
+                    </div>
+                    
+                    <h2 class="font-comic text-4xl sm:text-6xl text-mha-darkblue uppercase tracking-wider leading-none">
+                        ¡Misión Lengua <span class="text-mha-green">SdA 1</span>!
+                    </h2>
+                    
+                    <p class="text-slate-700 font-semibold text-base sm:text-lg max-w-xl mx-auto">
+                        ¡Saludos, joven aspirante! Para convertirte en un Héroe Profesional de la Lengua, debes superar los 3 Retos del Gimnasio Gamma. Demuestra tu dominio en Gramática, Figuras Literarias y Ortografía.
+                    </p>
+
+                    <!-- Student Info Input Form -->
+                    <div class="bg-emerald-50 p-6 rounded-xl comic-border text-left space-y-4 mt-6">
+                        <h3 class="font-comic text-2xl text-mha-darkgreen flex items-center gap-2">
+                            <i class="fa-solid fa-id-card"></i> Registro de Héroe / Heroína
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-sm mb-1 text-slate-800">Nombre completo:</label>
+                                <input type="text" id="input-student-name" placeholder="Ej: Izuku Midoriya" class="w-full p-3 rounded-lg comic-border focus:ring-2 focus:ring-mha-green outline-none font-semibold">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-sm mb-1 text-slate-800">Curso y Grupo:</label>
+                                <input type="text" id="input-student-group" value="6.º EP - Junta de Andalucía" class="w-full p-3 rounded-lg comic-border focus:ring-2 focus:ring-mha-green outline-none font-semibold bg-slate-100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Curriculum Badges -->
+                    <div class="flex flex-wrap justify-center gap-2 text-xs font-bold text-slate-600 pt-2">
+                        <span class="bg-slate-200 px-3 py-1 rounded-full border border-slate-400"><i class="fa-solid fa-graduation-cap mr-1"></i> LOMLOE Andalucía</span>
+                        <span class="bg-slate-200 px-3 py-1 rounded-full border border-slate-400"><i class="fa-solid fa-scroll mr-1"></i> Orden de 30 de mayo de 2023</span>
+                        <span class="bg-slate-200 px-3 py-1 rounded-full border border-slate-400"><i class="fa-solid fa-universal-access mr-1"></i> DUA Incluido</span>
+                    </div>
+
+                    <!-- Action Start Button -->
+                    <div class="pt-4">
+                        <button onclick="app.startApp()" class="w-full sm:w-auto bg-mha-yellow hover:bg-yellow-400 text-black font-comic text-2xl px-10 py-4 rounded-xl comic-border shadow-comic hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-3 mx-auto group">
+                            <span>¡INICIAR PRUEBA DE ADMISIÓN!</span>
+                            <i class="fa-solid fa-bolt text-2xl group-hover:scale-125 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SCREEN: HUB / MODULE SELECTOR -->
+        <section id="screen-hub" class="hidden space-y-6">
+            <!-- Hero Dashboard Banner -->
+            <div class="bg-gradient-to-r from-mha-darkblue to-slate-800 text-white p-6 rounded-2xl comic-border shadow-comic-lg flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <span id="hub-hero-badge" class="bg-mha-yellow text-black font-comic px-3 py-1 rounded comic-border text-sm inline-block">
+                        RANGO: NOVICIO
+                    </span>
+                    <h2 id="hub-welcome-title" class="font-comic text-3xl sm:text-4xl text-white">¡Bienvenido al Campo de Entrenamiento!</h2>
+                    <p class="text-slate-300 text-sm sm:text-base max-w-xl">
+                        Completa los 3 Módulos de Entrenamiento (20 actividades cada uno). Acumula Puntos de Héroe (PH) y desbloquea tu Licencia Profesional.
+                    </p>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="flex gap-4 bg-slate-900/80 p-4 rounded-xl comic-border text-center">
+                    <div>
+                        <div id="stat-total-score" class="font-comic text-3xl text-mha-yellow">0</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase">Puntos PH</div>
+                    </div>
+                    <div class="border-r border-slate-700"></div>
+                    <div>
+                        <div id="stat-progress-pct" class="font-comic text-3xl text-mha-lightgreen">0%</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase">Completado</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DUA Quirks / Dons Bar -->
+            <div class="bg-amber-50 border-2 border-amber-400 p-4 rounded-xl comic-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-mha-yellow p-3 rounded-xl comic-border text-2xl text-black">
+                        🧠
+                    </div>
+                    <div>
+                        <h4 class="font-comic text-xl text-slate-900">Dones de Apoyo DUA Activos</h4>
+                        <p class="text-xs font-medium text-slate-600">Dispones de Dones de apoyo durante cada reto para facilitar tu aprendizaje.</p>
+                    </div>
+                </div>
+                <button onclick="app.openMapModal()" class="bg-mha-blue hover:bg-blue-600 text-white font-comic px-4 py-2 rounded-lg comic-border shadow-comic text-sm transition-transform active:translate-y-1">
+                    <i class="fa-solid fa-map mr-1"></i> Ver Mapas Conceptuales DUA
+                </button>
+            </div>
+
+            <!-- Modules List (3 Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Module 1 Card -->
+                <div class="bg-white rounded-2xl p-6 comic-border shadow-comic flex flex-col justify-between hover:border-mha-green transition-all relative overflow-hidden group">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-emerald-100 text-mha-darkgreen font-comic px-3 py-1 rounded-full text-xs comic-border">RETO 1</span>
+                            <span id="m1-status-badge" class="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded border">0/20 completado</span>
+                        </div>
+                        <h3 class="font-comic text-2xl text-mha-darkblue group-hover:text-mha-green transition-colors">
+                            1. Gramática y Palabras
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Nombres (clases), Adjetivos (grados) y Formación de palabras (raíz, lexema, prefijos y sufijos).
+                        </p>
+                        <div class="text-xs font-bold text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
+                            <i class="fa-solid fa-bullseye text-mha-green mr-1"></i> CRIT.LCL.3.9.1 / Saber LCL.3.C
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <button onclick="app.startModule(0)" class="w-full bg-mha-green hover:bg-emerald-600 text-white font-comic text-lg py-3 rounded-xl comic-border shadow-comic active:translate-y-1 transition-all">
+                            <i class="fa-solid fa-play mr-1"></i> Iniciar Reto 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2 Card -->
+                <div class="bg-white rounded-2xl p-6 comic-border shadow-comic flex flex-col justify-between hover:border-mha-purple transition-all relative overflow-hidden group">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-purple-100 text-mha-purple font-comic px-3 py-1 rounded-full text-xs comic-border">RETO 2</span>
+                            <span id="m2-status-badge" class="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded border">0/20 completado</span>
+                        </div>
+                        <h3 class="font-comic text-2xl text-mha-darkblue group-hover:text-mha-purple transition-colors">
+                            2. Figuras Literarias
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Metáfora, Comparación / Símil, Personificación e Hipérbole. Recursos expresivos.
+                        </p>
+                        <div class="text-xs font-bold text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
+                            <i class="fa-solid fa-bullseye text-mha-purple mr-1"></i> CRIT.LCL.3.7.1 / Saber LCL.3.D
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <button onclick="app.startModule(1)" class="w-full bg-mha-purple hover:bg-purple-700 text-white font-comic text-lg py-3 rounded-xl comic-border shadow-comic active:translate-y-1 transition-all">
+                            <i class="fa-solid fa-play mr-1"></i> Iniciar Reto 2
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 3 Card -->
+                <div class="bg-white rounded-2xl p-6 comic-border shadow-comic flex flex-col justify-between hover:border-mha-red transition-all relative overflow-hidden group">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-rose-100 text-mha-red font-comic px-3 py-1 rounded-full text-xs comic-border">RETO 3</span>
+                            <span id="m3-status-badge" class="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded border">0/20 completado</span>
+                        </div>
+                        <h3 class="font-comic text-2xl text-mha-darkblue group-hover:text-mha-red transition-colors">
+                            3. Ortografía y Acentuación
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Acentuación gráfica: Agudas, Llanas y Esdrújulas. Reglas de uso de la tilde (-n, -s, vocal).
+                        </p>
+                        <div class="text-xs font-bold text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
+                            <i class="fa-solid fa-bullseye text-mha-red mr-1"></i> CRIT.LCL.3.9.2 / Saber LCL.3.C
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <button onclick="app.startModule(2)" class="w-full bg-mha-red hover:bg-red-600 text-white font-comic text-lg py-3 rounded-xl comic-border shadow-comic active:translate-y-1 transition-all">
+                            <i class="fa-solid fa-play mr-1"></i> Iniciar Reto 3
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Finish Quiz & Generate Report Button -->
+            <div class="bg-slate-200 p-6 rounded-2xl comic-border text-center space-y-3">
+                <h3 class="font-comic text-2xl text-slate-800">¿Has completado todos los ejercicios?</h3>
+                <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">
+                    Puedes generar tu Informe de Evaluación Oficial para la Junta de Andalucía en cualquier momento o al finalizar los 3 retos.
+                </p>
+                <button onclick="app.generateFinalReport()" class="bg-mha-yellow hover:bg-yellow-400 text-black font-comic text-xl px-8 py-3 rounded-xl comic-border shadow-comic transition-transform active:translate-y-1">
+                    <i class="fa-solid fa-file-contract mr-2"></i> Generar Informe Oficial Competencial
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. SCREEN: QUIZ RUNNER -->
+        <section id="screen-quiz" class="hidden space-y-6">
+            <!-- Quiz Header Bar -->
+            <div class="bg-white p-4 rounded-2xl comic-border shadow-comic flex flex-wrap justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <button onclick="app.showScreen('hub')" class="bg-slate-200 hover:bg-slate-300 p-2.5 rounded-lg comic-border text-xs font-bold">
+                        <i class="fa-solid fa-arrow-left"></i> Volver al Hub
+                    </button>
+                    <div>
+                        <span id="quiz-module-title" class="font-comic text-xl text-mha-darkblue block leading-none">Módulo 1</span>
+                        <span id="quiz-criterion-tag" class="text-xs font-bold text-slate-500">CRIT.LCL.3.9.1</span>
+                    </div>
+                </div>
+
+                <!-- Progress Pill -->
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <div class="text-xs font-bold text-slate-500">Pregunta</div>
+                        <div id="quiz-progress-text" class="font-comic text-lg text-mha-darkblue">1 de 20</div>
+                    </div>
+                    <div class="w-32 sm:w-48 bg-slate-200 h-4 rounded-full comic-border-sm overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-mha-green h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quirks / DUA Helps Bar -->
+            <div class="bg-white p-3 rounded-xl comic-border flex flex-wrap items-center justify-between gap-2 text-xs font-bold">
+                <span class="text-slate-600 flex items-center gap-1">
+                    <i class="fa-solid fa-wand-magic-sparkles text-mha-yellow"></i> Dones de Apoyo DUA:
+                </span>
+                <div class="flex gap-2">
+                    <button id="btn-quirk-highlight" onclick="app.useQuirkHighlight()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 px-3 py-1.5 rounded-lg border border-amber-300 flex items-center gap-1 transition-all">
+                        <span>🔍 Visión Analítica</span>
+                    </button>
+                    <button id="btn-quirk-shield" onclick="app.useQuirkShield()" class="bg-blue-100 hover:bg-blue-200 text-blue-900 px-3 py-1.5 rounded-lg border border-blue-300 flex items-center gap-1 transition-all">
+                        <span>🛡️ Escudo Gramatical</span>
+                    </button>
+                    <button id="btn-quirk-deku" onclick="app.useQuirkDeku()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-900 px-3 py-1.5 rounded-lg border border-emerald-300 flex items-center gap-1 transition-all">
+                        <span>💡 Impulso Deku</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active DUA Help Box Overlay/Callout -->
+            <div id="dua-help-box" class="hidden bg-yellow-50 border-2 border-yellow-400 p-4 rounded-xl comic-border space-y-2 relative animate-fade-in">
+                <button onclick="document.getElementById('dua-help-box').classList.add('hidden')" class="absolute top-2 right-2 text-slate-400 hover:text-black">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <h4 id="dua-help-title" class="font-comic text-lg text-amber-900 flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb"></i> Pista del Don
+                </h4>
+                <p id="dua-help-text" class="text-sm text-slate-700 font-medium">
+                    Aquí aparecerá el consejo o resalte visual.
+                </p>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl comic-border shadow-comic-lg space-y-6">
+                <!-- Context / Stem -->
+                <div class="space-y-2">
+                    <span id="question-tag" class="bg-slate-100 text-slate-700 font-bold px-3 py-1 rounded-md text-xs comic-border-sm inline-block">
+                        Categoría: Sustantivos
+                    </span>
+                    <h3 id="question-text" class="font-comic text-2xl sm:text-3xl text-slate-900 leading-snug">
+                        ¿Qué clase de sustantivo es la palabra 'enjambre'?
+                    </h3>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="question-options" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <!-- Dynamic option buttons injected by JS -->
+                </div>
+
+                <!-- Immediate Deku Feedback Modal/Box (Shown after answer) -->
+                <div id="deku-feedback-box" class="hidden p-5 rounded-xl comic-border space-y-3 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-mha-green text-white rounded-full flex items-center justify-center font-comic text-xl comic-border flex-shrink-0">
+                            📝
+                        </div>
+                        <div>
+                            <h4 id="feedback-title" class="font-comic text-xl">Análisis de Deku</h4>
+                            <p id="feedback-subtitle" class="text-xs font-bold text-slate-600">Explicación formativa DUA</p>
+                        </div>
+                    </div>
+                    <p id="feedback-text" class="text-sm font-medium leading-relaxed text-slate-800">
+                        Explicación detallada...
+                    </p>
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="app.nextQuestion()" class="bg-mha-yellow hover:bg-yellow-400 text-black font-comic text-lg px-6 py-2 rounded-xl comic-border shadow-comic">
+                            Siguiente Ejercicio <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. SCREEN: FINAL REPORT (LOMLOE Andalucía) -->
+        <section id="screen-report" class="hidden space-y-6 my-auto">
+            
+            <!-- Actions Top Bar (No Print) -->
+            <div class="no-print flex flex-wrap justify-between items-center gap-4 bg-white p-4 rounded-xl comic-border shadow-comic">
+                <button onclick="app.showScreen('hub')" class="bg-slate-200 hover:bg-slate-300 font-bold px-4 py-2 rounded-lg comic-border text-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Volver al Panel
+                </button>
+                <div class="flex gap-3">
+                    <button onclick="window.print()" class="bg-mha-blue hover:bg-blue-600 text-white font-comic px-6 py-2 rounded-xl comic-border shadow-comic text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Imprimir / Guardar PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- OFFICIAL REPORT CONTENT CONTAINER -->
+            <div id="report-print-area" class="bg-white p-8 sm:p-12 rounded-2xl comic-border shadow-comic-lg space-y-8 max-w-4xl mx-auto text-slate-900">
+                
+                <!-- Official Junta de Andalucía Header Style -->
+                <div class="border-b-4 border-black pb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <div class="text-xs font-bold tracking-widest text-slate-500 uppercase">JUNTA DE ANDALUCÍA — CONSEJERÍA DE DESARROLLO EDUCATIVO</div>
+                        <h2 class="font-comic text-3xl text-mha-darkblue uppercase">INFORME DE EVALUACIÓN COMPETENCIAL</h2>
+                        <p class="text-sm font-semibold text-slate-700">6.º Educación Primaria — Situación de Aprendizaje 1 (SdA 1)</p>
+                    </div>
+                    <div class="text-center sm:text-right bg-slate-100 p-3 rounded-xl comic-border-sm">
+                        <div class="text-xs font-bold text-slate-500">ACADEMIA UA</div>
+                        <div class="font-comic text-xl text-mha-green">MY READER ACADEMIA</div>
+                    </div>
+                </div>
+
+                <!-- Student Data Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-emerald-50/60 p-4 rounded-xl comic-border-sm text-sm">
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500">ALUMNO/A:</span>
+                        <span id="report-student-name" class="font-bold text-slate-900">Izuku Midoriya</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500">CURSO/GRUPO:</span>
+                        <span id="report-student-group" class="font-bold text-slate-900">6.º EP</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500">FECHA DE EMISIÓN:</span>
+                        <span id="report-date" class="font-bold text-slate-900">10/10/2026</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold text-slate-500">RANGO HÉROE:</span>
+                        <span id="report-hero-rank" class="font-bold text-mha-darkgreen">S (Plus Ultra)</span>
+                    </div>
+                </div>
+
+                <!-- Evaluated Criteria Breakdown (Orden de 30 de mayo de 2023) -->
+                <div class="space-y-4">
+                    <h3 class="font-comic text-2xl text-mha-darkblue border-b-2 border-slate-300 pb-1">
+                        1. Resultados por Criterios de Evaluación y Saberes Básicos
+                    </h3>
+
+                    <div class="space-y-3">
+                        <!-- Criterion 1 -->
+                        <div class="p-4 rounded-xl comic-border-sm bg-slate-50 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-800">CRIT.LCL.3.9.1 / Saber LCL.3.C — Gramática y Formación de Palabras</span>
+                                <span id="report-score-c1" class="font-comic text-xl text-mha-green">10 / 10</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Reconocimiento e identificación de sustantivos, adjetivos y sus grados, e inferencia de la estructura de palabras (raíz, prefijos y sufijos).</p>
+                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                <div id="report-bar-c1" class="bg-mha-green h-full w-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Criterion 2 -->
+                        <div class="p-4 rounded-xl comic-border-sm bg-slate-50 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-800">CRIT.LCL.3.7.1 / Saber LCL.3.D — Educación Literaria (Figuras Retóricas)</span>
+                                <span id="report-score-c2" class="font-comic text-xl text-mha-purple">10 / 10</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Identificación de recursos literarios expresivos: metáfora, comparación/símil, personificación e hipérbole en textos líricos y narrativos.</p>
+                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                <div id="report-bar-c2" class="bg-mha-purple h-full w-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Criterion 3 -->
+                        <div class="p-4 rounded-xl comic-border-sm bg-slate-50 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-sm text-slate-800">CRIT.LCL.3.9.2 / Saber LCL.3.C — Ortografía y Acentuación Gráfica</span>
+                                <span id="report-score-c3" class="font-comic text-xl text-mha-red">10 / 10</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Aplicación correcta de las normas de acentuación gráfica (tilde) en palabras agudas, llanas y esdrújulas según su sílaba tónica.</p>
+                            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                <div id="report-bar-c3" class="bg-mha-red h-full w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Qualification -->
+                <div class="bg-amber-50 p-6 rounded-2xl comic-border flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h4 class="font-comic text-2xl text-slate-900">Calificación Global SdA 1</h4>
+                        <p class="text-xs font-semibold text-slate-600">Porcentaje total de precisión en actividades de aprendizaje.</p>
+                    </div>
+                    <div class="text-center sm:text-right">
+                        <div id="report-final-grade" class="font-comic text-5xl text-mha-darkblue">10.0</div>
+                        <span id="report-final-qual" class="bg-mha-yellow text-black font-bold text-xs px-3 py-1 rounded-full comic-border-sm inline-block mt-1">SOBRESALIENTE</span>
+                    </div>
+                </div>
+
+                <!-- Teacher Signatures -->
+                <div class="pt-8 border-t-2 border-slate-300 flex justify-between items-end text-center text-xs">
+                    <div>
+                        <p class="font-bold text-slate-500">Sello del Centro UA Academia</p>
+                        <div class="w-24 h-24 border-2 border-dashed border-slate-300 rounded-full flex items-center justify-center text-slate-300 font-comic mx-auto mt-2">
+                            SELLO UA
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-comic text-lg text-slate-800 mb-1">Carlos H. González Ortega</div>
+                        <p class="font-bold text-slate-600">(profesaurio)</p>
+                        <p class="text-slate-500">Docente de Lengua Castellana y Literatura</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CONCEPT MAPS MODAL (DUA SUPPORT) -->
+    <div id="modal-map" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-2xl comic-border shadow-comic-lg flex flex-col max-h-[90vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-mha-blue text-white p-4 comic-border-b flex justify-between items-center">
+                <h3 class="font-comic text-2xl flex items-center gap-2">
+                    <i class="fa-solid fa-map"></i> Mapas Conceptuales DUA — SdA 1
+                </h3>
+                <button onclick="app.closeMapModal()" class="bg-slate-800 hover:bg-black text-white w-8 h-8 rounded-full comic-border-sm flex items-center justify-center">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Modal Body Tabs & Content -->
+            <div class="p-6 overflow-y-auto space-y-6">
+                <!-- Tab Buttons -->
+                <div class="flex flex-wrap gap-2 border-b pb-3">
+                    <button onclick="app.switchMapTab('gram')" id="tab-btn-gram" class="bg-mha-green text-white font-comic px-4 py-2 rounded-lg comic-border text-sm">
+                        1. Gramática y Palabras
+                    </button>
+                    <button onclick="app.switchMapTab('lit')" id="tab-btn-lit" class="bg-slate-200 text-slate-700 font-comic px-4 py-2 rounded-lg comic-border text-sm">
+                        2. Figuras Literarias
+                    </button>
+                    <button onclick="app.switchMapTab('ort')" id="tab-btn-ort" class="bg-slate-200 text-slate-700 font-comic px-4 py-2 rounded-lg comic-border text-sm">
+                        3. Acentuación
+                    </button>
+                </div>
+
+                <!-- Tab Content 1: Gramatica -->
+                <div id="map-content-gram" class="space-y-4">
+                    <div class="bg-emerald-50 p-4 rounded-xl comic-border-sm space-y-2">
+                        <h4 class="font-comic text-xl text-mha-darkgreen">Sustantivos (Nombres)</h4>
+                        <ul class="text-xs space-y-1 font-semibold text-slate-700">
+                            <li>• <strong>Común / Propio:</strong> perro vs. Toby</li>
+                            <li>• <strong>Concreto / Abstracto:</strong> mesa (se toca) vs. alegría (sentimiento)</li>
+                            <li>• <strong>Individual / Colectivo:</strong> abeja (uno) vs. enjambre (grupo)</li>
+                            <li>• <strong>Contable / Incontable:</strong> lápiz (se cuenta) vs. agua (no se cuenta)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl comic-border-sm space-y-2">
+                        <h4 class="font-comic text-xl text-mha-blue">Adjetivos y sus Grados</h4>
+                        <ul class="text-xs space-y-1 font-semibold text-slate-700">
+                            <li>• <strong>Positivo:</strong> El héroe es rápido.</li>
+                            <li>• <strong>Comparativo:</strong> Más rápido que (superioridad), Tan rápido como (igualdad), Menos rápido que (inferioridad).</li>
+                            <li>• <strong>Superlativo:</strong> Rapidísimo / El más rápido.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-xl comic-border-sm space-y-2">
+                        <h4 class="font-comic text-xl text-amber-900">Formación de Palabras</h4>
+                        <p class="text-xs font-semibold text-slate-700">
+                            <strong>Raíz / Lexema:</strong> Parte que contiene el significado (ej: <em>mar</em>).<br>
+                            <strong>Prefijos:</strong> Delante de la raíz (ej: <em>sub-</em>marino).<br>
+                            <strong>Sufijos:</strong> Detrás de la raíz (ej: marin-<em>ero</em>).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tab Content 2: Literatura -->
+                <div id="map-content-lit" class="hidden space-y-4">
+                    <div class="bg-purple-50 p-4 rounded-xl comic-border-sm space-y-2">
+                        <h4 class="font-comic text-xl text-mha-purple">Figuras Literarias</h4>
+                        <ul class="text-xs space-y-2 font-semibold text-slate-700">
+                            <li>• <strong>Metáfora:</strong> Identifica dos realidades sin usar "como" (ej: <em>Tus ojos son dos esmeraldas</em>).</li>
+                            <li>• <strong>Comparación / Símil:</strong> Relaciona con la palabra "como" o "parece" (ej: <em>Rápido como el rayo</em>).</li>
+                            <li>• <strong>Personificación:</strong> Atribuye cualidades humanas a animales u objetos (ej: <em>El viento susurraba tu nombre</em>).</li>
+                            <li>• <strong>Hipérbole:</strong> Exageración cuantitativa (ej: <em>Te lo he dicho un millón de veces</em>).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab Content 3: Ortografia -->
+                <div id="map-content-ort" class="hidden space-y-4">
+                    <div class="bg-rose-50 p-4 rounded-xl comic-border-sm space-y-2">
+                        <h4 class="font-comic text-xl text-mha-red">Reglas de Acentuación Gráfica</h4>
+                        <ul class="text-xs space-y-2 font-semibold text-slate-700">
+                            <li>• <strong>AGUDAS:</strong> Sílaba tónica en la ULTIMA posición. Llevan tilde si terminan en <strong>-N, -S o VOCAL</strong> (ej: <em>balón, compás, café</em>).</li>
+                            <li>• <strong>LLANAS:</strong> Sílaba tónica en la PENÚLTIMA posición. Llevan tilde si NO terminan en -N, -S ni VOCAL (ej: <em>árbol, lápiz</em>).</li>
+                            <li>• <strong>ESDRÚJULAS:</strong> Sílaba tónica en la ANTEPENÚLTIMA posición. Llevan tilde <strong>SIEMPRE</strong> (ej: <em>música, relámpago</em>).</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* -------------------------------------------------------------------------- */
+        /* DATASET: 60 ACTIVIDADES COMPLETAS (20 POR CADA MÓDULO)                      */
+        /* -------------------------------------------------------------------------- */
+        const QUIZ_DATA = [
+            // ==================== MÓDULO 1: GRAMÁTICA Y PALABRAS (20 ACTIVIDADES) ====================
+            {
+                moduleIndex: 0,
+                id: "m1_1",
+                category: "Sustantivos - Clases",
+                question: "¿Qué clase de sustantivo es la palabra 'enjambre' según el número de elementos que designa?",
+                options: ["Individual", "Colectivo", "Abstracto", "Incontable"],
+                correct: 1,
+                highlight: "Fíjate en si la palabra se refiere a un grupo organizado de abejas estando en singular.",
+                shield: "Un sustantivo colectivo nombra en singular a un conjunto de seres (ej: enjambre, rebaño).",
+                deku: "¡Enjambre es un sustantivo colectivo! Aunque la palabra está en singular, designa a un conjunto de abejas."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_2",
+                category: "Sustantivos - Clases",
+                question: "¿Cuál de los siguientes sustantivos es ABSTRACTO?",
+                options: ["Gato", "Esperanza", "Cuaderno", "Piedra"],
+                correct: 1,
+                highlight: "Piensa en cuál de estas opciones representa un sentimiento o idea que no se puede percibir con los sentidos físicos.",
+                shield: "Los sustantivos abstractos nombran ideas, emociones o cualidades que no podemos tocar o ver físicamente.",
+                deku: "'Esperanza' es un sustantivo abstracto porque nombra una emoción o sentimiento, no un objeto físico tangible."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_3",
+                category: "Sustantivos - Clases",
+                question: "En la oración 'La harina es necesaria para hacer pan', ¿cómo se clasifica 'harina'?",
+                options: ["Contable", "Incontable", "Colectivo", "Propio"],
+                correct: 1,
+                highlight: "Piensa si puedes decir 'una harina, dos harinas' de forma directa sin usar unidades de medida.",
+                shield: "Los sustantivos incontables nombran materias o sustancias que no se pueden contar por unidades independientes.",
+                deku: "'Harina' es incontable, ya que solo la podemos medir por peso o sacos, pero no contar por unidades directas."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_4",
+                category: "Adjetivos - Grados",
+                question: "¿En qué grado se encuentra el adjetivo en: 'All Might es tan valiente como Midoriya'?",
+                options: ["Positivo", "Comparativo de Igualdad", "Comparativo de Superioridad", "Superlativo Absoluto"],
+                correct: 1,
+                highlight: "Observa la estructura 'tan... como...'.",
+                shield: "El comparativo de igualdad utiliza la estructura 'tan + adjetivo + como'.",
+                deku: "Es un comparativo de igualdad porque compara dos elementos equiparando la cualidad con la fórmula 'tan... como'."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_5",
+                category: "Adjetivos - Grados",
+                question: "¿Cuál es el adjetivo en grado SUPERLATIVO ABSOLUTO?",
+                options: ["Muy alto", "Rapidísimo", "Más fuerte que", "Menos frío"],
+                correct: 1,
+                highlight: "Busca la forma que añade el sufijo '-ísimo'.",
+                shield: "El superlativo absoluto expresa la cualidad en su grado máximo mediante '-ísimo' o 'muy'.",
+                deku: "'Rapidísimo' está en grado superlativo absoluto gracias a la terminación o sufijo '-ísimo'."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_6",
+                category: "Formación de Palabras",
+                question: "¿Cuál es la RAÍZ o LEXEMA de la familia de palabras: 'marino, marea, maremoto'?",
+                options: ["mar-", "mare-", "in-", "o-"],
+                correct: 0,
+                highlight: "Busca la parte común que no cambia en todas las palabras de esa familia.",
+                shield: "La raíz o lexema es el núcleo invariable que aporta el significado base de la palabra.",
+                deku: "La raíz común es 'mar-', pues contiene la información principal compartida por marino, marea y maremoto."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_7",
+                category: "Formación de Palabras",
+                question: "En la palabra 'deshacer', ¿qué tipo de afijo es 'des-'?",
+                options: ["Sufijo", "Prefijo", "Raíz", "Lexema"],
+                correct: 1,
+                highlight: "Mira si la partícula está situada ANTES o DESPUÉS de la raíz 'hacer'.",
+                shield: "Los prefijos son afijos que se colocan DELANTE de la raíz para formar una nueva palabra.",
+                deku: "'Des-' es un prefijo porque se añade antes del lexema 'hacer' para indicar la acción contraria."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_8",
+                category: "Formación de Palabras",
+                question: "En la palabra 'panadero', el elemento '-ero' es un...",
+                options: ["Prefijo", "Sufijo", "Lexema", "Pronombre"],
+                correct: 1,
+                highlight: "Identifica la posición de la partícula respectiva a la raíz 'pan-'.",
+                shield: "Los sufijos son afijos que se añaden DETRÁS de la raíz para derivar profesiones, objetos, etc.",
+                deku: "'-ero' es un sufijo que se coloca detrás de la raíz 'pan-' para crear el nombre del oficio."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_9",
+                category: "Sustantivos - Clases",
+                question: "¿Cuál de estos sustantivos es COLECTIVO?",
+                options: ["Soldado", "Ejército", "Gente", "Árboles"],
+                correct: 1,
+                highlight: "Asegúrate de que la palabra sea singular pero represente una fuerza organizada de personas.",
+                shield: "El sustantivo colectivo nombra en singular a un conjunto de elementos (ej: ejército = conjunto de soldados).",
+                deku: "'Ejército' es colectivo porque en singular designa a un conjunto de soldados."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_10",
+                category: "Adjetivos - Grados",
+                question: "Indica el grado del adjetivo en: 'Este examen fue menos difícil que el anterior'.",
+                options: ["Comparativo de Inferioridad", "Comparativo de Igualdad", "Superlativo Relativo", "Positivo"],
+                correct: 0,
+                highlight: "Localiza las palabras 'menos... que...'.",
+                shield: "El comparativo de inferioridad usa la fórmula 'menos + adjetivo + que'.",
+                deku: "Contiene un comparativo de inferioridad debido a la estructura explícita 'menos... que'."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_11",
+                category: "Formación de Palabras",
+                question: "¿Qué palabra contiene un PREFIJO de negación?",
+                options: ["Imposible", "Mariposa", "Camionero", "Subterráneo"],
+                correct: 0,
+                highlight: "Busca la partícula inicial que significa 'no' o 'lo contrario de'.",
+                shield: "Los prefijos 'im-' o 'in-' significan negación o privación.",
+                deku: "'Imposible' lleva el prefijo de negación 'im-' delante de 'posible' (lo que no es posible)."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_12",
+                category: "Sustantivos - Clases",
+                question: "¿Qué tipo de sustantivo es 'Sevilla'?",
+                options: ["Común, concreto, individual", "Propio, individual, concreto", "Abstracto, colectivo", "Incontable, común"],
+                correct: 1,
+                highlight: "Observa que empieza por mayúscula y se refiere a una ciudad única.",
+                shield: "Los sustantivos propios distinguen a un ser o lugar concreto del resto de su clase y van con mayúscula.",
+                deku: "'Sevilla' es un sustantivo propio porque designa a una ciudad específica."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_13",
+                category: "Adjetivos - Grados",
+                question: "¿Qué oración presenta un adjetivo en grado POSITIVO?",
+                options: ["El coche rojo es nuevo.", "Es el más rápido de todos.", "Está amabilísimo.", "Es más alto que tú."],
+                correct: 0,
+                highlight: "Busca el adjetivo que expresa la cualidad sin intensificar ni comparar.",
+                shield: "El grado positivo presenta la cualidad tal cual, sin comparaciones ni intensificadores.",
+                deku: "'El coche rojo es nuevo' contiene los adjetivos 'rojo' y 'nuevo' en grado positivo simple."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_14",
+                category: "Formación de Palabras",
+                question: "¿Cuál de las siguientes palabras es DERIVADA mediante sufijo de profesión?",
+                options: ["Floristería", "Dentista", "Incapaz", "Rehacer"],
+                correct: 1,
+                highlight: "Fíjate en la terminación '-ista'.",
+                shield: "El sufijo '-ista' o '-ero' sirve para formar profesiones u oficios.",
+                deku: "'Dentista' deriva de 'diente' mediante el sufijo de profesión '-ista'."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_15",
+                category: "Sustantivos - Clases",
+                question: "¿Cómo se clasifica el sustantivo 'justicia'?",
+                options: ["Concreto, contable", "Abstracto, incontable", "Colectivo, propio", "Individual, concreto"],
+                correct: 1,
+                highlight: "Piensa si es un valor o concepto que se comprende pero no se puede medir en unidades físicas.",
+                shield: "Los valores morales o virtudes son sustantivos abstractos e incontables.",
+                deku: "'Justicia' es un concepto abstracto (no material) e incontable."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_16",
+                category: "Adjetivos - Grados",
+                question: "En 'Bakugo es el más fuerte de la clase', el grado del adjetivo es...",
+                options: ["Superlativo Relativo", "Superlativo Absoluto", "Comparativo de Superioridad", "Positivo"],
+                correct: 0,
+                highlight: "Observa la forma 'el más... de...'.",
+                shield: "El superlativo relativo destaca a un sujeto dentro de un grupo limitado ('el más... de...').",
+                deku: "Es superlativo relativo porque destaca a un individuo respecto al resto del grupo o clase."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_17",
+                category: "Formación de Palabras",
+                question: "¿Cuál es el prefijo de la palabra 'subterráneo' y qué significa?",
+                options: ["sub- (debajo de)", "terrá- (tierra)", "neo- (nuevo)", "sub- (encima de)"],
+                correct: 0,
+                highlight: "Piensa en el significado de 'subcampeón' o 'submarino'.",
+                shield: "El prefijo 'sub-' indica posición inferior o por debajo de algo.",
+                deku: "El prefijo es 'sub-' y significa por debajo de (por debajo de la tierra)."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_18",
+                category: "Sustantivos - Clases",
+                question: "¿Cuál de estas palabras es un sustantivo INDIVIDUAL?",
+                options: ["Pinar", "Rebaño", "Pino", "Archipiélago"],
+                correct: 2,
+                highlight: "Busca el sustantivo que nombra a un único ser en singular.",
+                shield: "A diferencia de pinar (conjunto de pinos), 'pino' nombra a un solo árbol.",
+                deku: "'Pino' es individual porque se refiere a un único ejemplar de árbol."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_19",
+                category: "Adjetivos - Grados",
+                question: "'Todoroki es más ágil que Kirishima'. ¿En qué grado está el adjetivo?",
+                options: ["Comparativo de Superioridad", "Comparativo de Igualdad", "Superlativo", "Positivo"],
+                correct: 0,
+                highlight: "Fíjate en las palabras 'más... que...'.",
+                shield: "El comparativo de superioridad expresa mayor intensidad de una cualidad usando 'más + adjetivo + que'.",
+                deku: "Utiliza 'más... que', por lo que es un comparativo de superioridad."
+            },
+            {
+                moduleIndex: 0,
+                id: "m1_20",
+                category: "Formación de Palabras",
+                question: "¿Qué palabra está formada por PREFIJO + RAÍZ + SUFIJO?",
+                options: ["Desordena", "Submarino", "Pan", "Zapatero"],
+                correct: 1,
+                highlight: "Analiza 'sub-mar-ino'.",
+                shield: "Identifica la estructura: Prefijo (sub-) + Raíz (mar-) + Sufijo (-ino).",
+                deku: "'Submarino' se compone del prefijo 'sub-', el lexema 'mar-' y el sufijo '-ino'."
+            },
+
+            // ==================== MÓDULO 2: FIGURAS LITERARIAS (20 ACTIVIDADES) ====================
+            {
+                moduleIndex: 1,
+                id: "m2_1",
+                category: "Figuras Literarias",
+                question: "En el verso 'Tus dientes son perlas de tu boca', ¿qué figura literaria se utiliza?",
+                options: ["Comparación / Símil", "Metáfora", "Personificación", "Hipérbole"],
+                correct: 1,
+                highlight: "Observa que se identifican dos elementos directamente sin usar el nexo 'como'.",
+                shield: "La metáfora iguala una realidad con otra sin emplear el nexo comparativo 'como'.",
+                deku: "Es una metáfora pura, ya que dice directamente que los dientes 'son' perlas."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_2",
+                category: "Figuras Literarias",
+                question: "'El héroe corría rápido como el viento'. ¿Qué recurso literario es?",
+                options: ["Metáfora", "Comparación / Símil", "Personificación", "Hipérbole"],
+                correct: 1,
+                highlight: "Presta atención al conector expresivo 'como'.",
+                shield: "La comparación o símil une dos términos mediante 'como', 'parece' o 'se asemeja'.",
+                deku: "Es una comparación o símil porque utiliza explícitamente la palabra clave 'como'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_3",
+                category: "Figuras Literarias",
+                question: "'El sol le sonreía a la ciudad cada mañana'. ¿Qué figura literaria encontramos?",
+                options: ["Personificación", "Hipérbole", "Metáfora", "Comparación"],
+                correct: 0,
+                highlight: "Piensa si un astro inanimado como el sol puede realizar una acción humana como 'sonreír'.",
+                shield: "La personificación o prosopopeya atribuye acciones o cualidades humanas a objetos o elementos naturales.",
+                deku: "Es una personificación porque le otorga al sol una capacidad humana como es sonreír."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_4",
+                category: "Figuras Literarias",
+                question: "'Te he llamado un millón de veces'. ¿Qué recurso se ha empleado?",
+                options: ["Personificación", "Metáfora", "Hipérbole", "Comparación"],
+                correct: 2,
+                highlight: "Evalúa si la cifra 'un millón' es una exageración fuera de la realidad.",
+                shield: "La hipérbole consiste en exagerar de forma desmedida la realidad para aumentar la intensidad.",
+                deku: "Es una hipérbole clarísima porque exagera de manera desproporcionada la cantidad de llamadas."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_5",
+                category: "Figuras Literarias",
+                question: "'Las estrellas nos guiñaban el ojo desde el cielo'. ¿Qué figura retórica es?",
+                options: ["Personificación", "Metáfora", "Comparación", "Hipérbole"],
+                correct: 0,
+                highlight: "Analiza si las estrellas tienen párpados para guiñar.",
+                shield: "Atribuir un gesto humano (guiñar) a las estrellas es personificarlas.",
+                deku: "Es una personificación, pues las estrellas adoptan el comportamiento humano de guiñar un ojo."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_6",
+                category: "Figuras Literarias",
+                question: "'Su mirada era helada como el hielo del norte'. Identifica la figura:",
+                options: ["Metáfora", "Comparación / Símil", "Hipérbole", "Personificación"],
+                correct: 1,
+                highlight: "Fíjate en el nexo 'como'.",
+                shield: "Existe un término real (mirada) y uno imaginario (hielo) unidos por 'como'.",
+                deku: "Se trata de una comparación o símil gracias a la presencia del conector 'como'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_7",
+                category: "Figuras Literarias",
+                question: "'Lloró mares de lágrimas al ver el final del entrenamiento'. ¿Qué figura es?",
+                options: ["Metáfora", "Personificación", "Hipérbole", "Comparación"],
+                correct: 2,
+                highlight: "Pregúntate si es físicamente posible llenar 'mares' con lágrimas.",
+                shield: "Exagerar la cantidad de llanto hasta llenar mares constituye una hipérbole.",
+                deku: "Es una hipérbole debido a la exageración poética del volumen de lágrimas."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_8",
+                category: "Figuras Literarias",
+                question: "'El algodón del cielo flotaba en el atardecer' (refiriéndose a las nubes). ¿Qué figura es?",
+                options: ["Metáfora", "Comparación", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Se nombra directamente al algodón en lugar de las nubes sin decir 'como'.",
+                shield: "Sustituir 'nubes' por 'algodón del cielo' directamente es una metáfora.",
+                deku: "Es una metáfora: transforma poéticamente las nubes en 'algodón' directamente."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_9",
+                category: "Figuras Literarias",
+                question: "'El viento susurraba secretos entre las hojas de los árboles'. ¿Qué figura es?",
+                options: ["Personificación", "Hipérbole", "Comparación", "Metáfora"],
+                correct: 0,
+                highlight: "¿Puede el viento 'susurrar secretos' como una persona?",
+                shield: "Dar voz o la capacidad de hablar/susurrar a elementos inanimados es personificar.",
+                deku: "Es una personificación porque el viento realiza la acción humana de susurrar."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_10",
+                category: "Figuras Literarias",
+                question: "'Tardó mil años en terminar la tarea de Lengua'. ¿Qué recurso se utiliza?",
+                options: ["Hipérbole", "Metáfora", "Comparación", "Personificación"],
+                correct: 0,
+                highlight: "Nadie vive mil años para hacer un deber; es una expresión desmesurada.",
+                shield: "Exagerar el tiempo dedicado a una tarea es una hipérbole.",
+                deku: "Es una hipérbole por la exageración temporal extrema."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_11",
+                category: "Figuras Literarias",
+                question: "'Sus manos parecían garras de águila'. ¿Qué figura literaria es?",
+                options: ["Comparación / Símil", "Metáfora", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Atención al verbo 'parecían', que actúa como nexo comparativo.",
+                shield: "Los verbos 'parecer' o 'asemejarse' también introducen comparaciones.",
+                deku: "Es una comparación o símil porque relaciona dos cosas usando el verbo 'parecían'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_12",
+                category: "Figuras Literarias",
+                question: "'El disco de fuego alumbraba la tarde' (refiriéndose al sol). Es una...",
+                options: ["Metáfora", "Personificación", "Hipérbole", "Comparación"],
+                correct: 0,
+                highlight: "Sustituye la palabra 'sol' por la imagen sugerente 'disco de fuego'.",
+                shield: "Designar al sol como 'disco de fuego' es una metáfora visual.",
+                deku: "Es una metáfora porque nombra al sol mediante un término figurado."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_13",
+                category: "Figuras Literarias",
+                question: "'El reloj protestaba con cada tic-tac atronador'. ¿Qué figura es?",
+                options: ["Personificación", "Metáfora", "Comparación", "Hipérbole"],
+                correct: 0,
+                highlight: "¿Protestan los objetos inanimados?",
+                shield: "La queja o protesta es un sentimiento/actitud humana asignada al reloj.",
+                deku: "Es una personificación al otorgar al reloj la actitud humana de protestar."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_14",
+                category: "Figuras Literarias",
+                question: "'Tenía tanto sueño que podía dormir un siglo entero'. Es una...",
+                options: ["Hipérbole", "Personificación", "Metáfora", "Comparación"],
+                correct: 0,
+                highlight: "Dormir 100 años es una exageración gigante.",
+                shield: "La exageración de la duración del sueño representa una hipérbole.",
+                deku: "Es una hipérbole ya que exagera exponencialmente la cantidad de sueño."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_15",
+                category: "Figuras Literarias",
+                question: "'Su cabello de oro brillaba bajo el sol'. 'De oro' se refiere a rubio mediante...",
+                options: ["Metáfora", "Comparación", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Identifica el color rubio con el metal precioso 'oro' directamente.",
+                shield: "Asociar directamente el cabello rubio con el 'oro' es una metáfora clásica.",
+                deku: "Es una metáfora: reemplaza la cualidad 'rubio' por el sustantivo 'oro'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_16",
+                category: "Figuras Literarias",
+                question: "'El coche rugía como un león hambriento en la pista'. Es una...",
+                options: ["Comparación / Símil", "Metáfora", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Observa el nexo 'como'.",
+                shield: "Relacionar el sonido del motor con un león usando 'como' es un símil.",
+                deku: "Es un símil o comparación indicado por la palabra de enlace 'como'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_17",
+                category: "Figuras Literarias",
+                question: "'El mar abrazaba la orilla con delicadeza'. ¿Qué figura representa?",
+                options: ["Personificación", "Metáfora", "Hipérbole", "Comparación"],
+                correct: 0,
+                highlight: "¿Tienen brazos los mares para dar abrazos?",
+                shield: "El acto afectivo de dar un abrazo es exclusivo de los seres vivos personificados.",
+                deku: "Es una personificación porque le atribuye al mar la acción de 'abrazar'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_18",
+                category: "Figuras Literarias",
+                question: "'Pesaba más que un elefante adulto esa mochila'. ¿Qué recurso es?",
+                options: ["Hipérbole", "Metáfora", "Personificación", "Comparación"],
+                correct: 0,
+                highlight: "Es una exageración enorme del peso de la mochila.",
+                shield: "Aumentar desmesuradamente la masa de un objeto es una hipérbole.",
+                deku: "Es una hipérbole por la exageración intencionada de la masa de la mochila."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_19",
+                category: "Figuras Literarias",
+                question: "'Las lágrimas eran ríos corriendo por sus mejillas'. Es una...",
+                options: ["Metáfora", "Comparación", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Dice que las lágrimas 'eran' ríos directamente.",
+                shield: "Igualar las lágrimas directamente con ríos sin usar 'como' constituye una metáfora.",
+                deku: "Es una metáfora al identificar el flujo de lágrimas directamente con 'ríos'."
+            },
+            {
+                moduleIndex: 1,
+                id: "m2_20",
+                category: "Figuras Literarias",
+                question: "'Tenía una sonrisa tan dulce como la miel'. ¿Qué figura es?",
+                options: ["Comparación / Símil", "Metáfora", "Personificación", "Hipérbole"],
+                correct: 0,
+                highlight: "Busca las palabras 'tan... como...'.",
+                shield: "La fórmula 'tan + adjetivo + como' genera una comparación expresiva.",
+                deku: "Es una comparación o símil motivada por la fórmula 'tan dulce como'."
+            },
+
+            // ==================== MÓDULO 3: ORTOGRAFÍA Y ACENTUACIÓN (20 ACTIVIDADES) ====================
+            {
+                moduleIndex: 2,
+                id: "m3_1",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Por qué lleva tilde la palabra 'balón'?",
+                options: [
+                    "Es aguda y termina en -N",
+                    "Es llana y termina en vocal",
+                    "Es esdrújula",
+                    "Es aguda y termina en consonante distinta de -n o -s"
+                ],
+                correct: 0,
+                highlight: "Localiza la sílaba tónica (ba-LÓN) y la última letra de la palabra.",
+                shield: "Las palabras agudas tienen la sílaba tónica en la última posición y llevan tilde si acaban en -N, -S o VOCAL.",
+                deku: "'Balón' es aguda (fuerza en la última sílaba) y lleva tilde porque finaliza en la consonante -N."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_2",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de las siguientes palabras es ESDRÚJULA?",
+                options: ["Música", "Caracol", "Ventana", "Camión"],
+                correct: 0,
+                highlight: "Divide en sílabas y busca dónde recae la fuerza de voz: antepenúltima posición (MÚ-si-ca).",
+                shield: "Las palabras esdrújulas tienen la sílaba tónica en la antepenúltima sílaba y LLEVAN TILDE SIEMPRE.",
+                deku: "'Música' (MÚ-si-ca) es esdrújula y lleva tilde por regla general siempre."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_3",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Por qué la palabra 'árbol' lleva tilde?",
+                options: [
+                    "Es llana y NO termina en -n, -s ni vocal",
+                    "Es aguda y termina en -L",
+                    "Es esdrújula",
+                    "Es llana y termina en vocal"
+                ],
+                correct: 0,
+                highlight: "Sílaba tónica: ÁR-bol (penúltima). Termina en la letra 'l'.",
+                shield: "Las palabras llanas tienen la fuerza en la penúltima sílaba y llevan tilde cuando NO terminan en -N, -S o VOCAL.",
+                deku: "'Árbol' es llana y se acentúa porque su letra final es 'L' (diferente de -n, -s o vocal)."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_4",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "La palabra 'casa' es llana pero NO lleva tilde porque...",
+                options: [
+                    "Termina en vocal",
+                    "Termina en consonante",
+                    "Es una palabra aguda",
+                    "Las palabras llanas nunca llevan tilde"
+                ],
+                correct: 0,
+                highlight: "Fíjate en la última letra de 'ca-sa'. Es una 'a' (vocal).",
+                shield: "Las palabras llanas NO llevan tilde si terminan en -n, -s o vocal.",
+                deku: "'Casa' es llana (CA-sa) y no lleva tilde porque finaliza en vocal."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_5",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de estas palabras es AGUDA SIN TILDE?",
+                options: ["Pared", "Café", "Lápiz", "Pájaro"],
+                correct: 0,
+                highlight: "Busca la palabra con fuerza en la última sílaba que termine en una consonante que no sea -n ni -s.",
+                shield: "Las agudas que terminan en consonantes como -d, -r, -l, -z no llevan tilde.",
+                deku: "'Pared' (pa-RED) es aguda pero no lleva tilde porque termina en 'd'."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_6",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Todas las palabras esdrújulas llevan tilde?",
+                options: ["Sí, absolutamente todas", "No, solo las que acaban en vocal", "No, solo las que acaban en -n o -s", "Depende del contexto"],
+                correct: 0,
+                highlight: "Recuerda la regla de oro de las palabras esdrújulas.",
+                shield: "Regla fija: ¡Las palabras esdrújulas se acentúan siempre sin excepción!",
+                deku: "¡Sí! La regla es tajante: todas las palabras esdrújulas llevan tilde gráfica siempre."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_7",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "Clasifica según su acentuación la palabra: 'relámpago'.",
+                options: ["Esdrújula", "Aguda", "Llana", "Sobreesdrújula"],
+                correct: 0,
+                highlight: "Separa en sílabas: re-LÁM-pa-go. ¿En cuál recae la tilde?",
+                shield: "Fuerza en la antepenúltima sílaba = Esdrújula.",
+                deku: "'Relámpago' tiene la sílaba tónica en la antepenúltima posición (re-LÁM-pa-go), por lo que es esdrújula."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_8",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de las siguientes palabras está MAL acentuada?",
+                options: ["Examenes", "Carácter", "Canción", "Lápiz"],
+                correct: 0,
+                highlight: "Divide 'exá-me-nes' en sílabas. Si es esdrújula, ¿qué le falta?",
+                shield: "'Examen' es llana sin tilde, pero su plural 'exámenes' se convierte en esdrújula y DEBE llevar tilde.",
+                deku: "¡'Examenes' está mal! Al ser esdrújula (ex-Á-me-nes) debe llevar tilde obligatoriamente en la 'a'."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_9",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "La palabra 'compás' lleva tilde por ser...",
+                options: ["Aguda terminada en -S", "Llana terminada en -S", "Esdrújula", "Aguda terminada en vocal"],
+                correct: 0,
+                highlight: "Análisis: com-PÁS. Última sílaba tónica + termina en 's'.",
+                shield: "Las agudas con tónica al final acabadas en -s se acentúan.",
+                deku: "'Compás' es una palabra aguda que termina en la letra '-s', por lo que exige tilde."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_10",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿En qué posición tienen la sílaba tónica las palabras LLANAS?",
+                options: ["Penúltima sílaba", "Última sílaba", "Antepenúltima sílaba", "Anterior a la antepenúltima"],
+                correct: 0,
+                highlight: "Cuenta desde el final: última (aguda), penúltima (llana)...",
+                shield: "Sílaba tónica: Última (Aguda), Penúltima (Llana), Antepenúltima (Esdrújula).",
+                deku: "Las palabras llanas o graves tienen el golpe de voz tónico en la penúltima sílaba."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_11",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de estas palabras es LLANA CON TILDE?",
+                options: ["Cárcel", "Camión", "Pájaro", "Mesa"],
+                correct: 0,
+                highlight: "Fuerza en la penúltima sílaba y terminación diferente de -n, -s, vocal.",
+                shield: "'Cár-cel' tiene la fuerza en 'cár' y termina en 'l', cumpliendo la regla de las llanas con tilde.",
+                deku: "'Cárcel' es llana y se acentúa porque finaliza en la consonante 'l'."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_12",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "Indica el tipo de palabra de 'sofá':",
+                options: ["Aguda con tilde por terminar en vocal", "Llana con tilde", "Esdrújula", "Aguda sin tilde"],
+                correct: 0,
+                highlight: "Sílaba tónica: so-FÁ (última). Termina en la vocal 'a'.",
+                shield: "Aguda + terminación en vocal = Tilde obligatoria.",
+                deku: "'Sofá' es aguda y lleva tilde porque acaba en vocal."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_13",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de estas palabras NO lleva tilde?",
+                options: ["Cantar", "Café", "Jardín", "Teléfono"],
+                correct: 0,
+                highlight: "Prueba la pronunciación: can-TAR (aguda terminada en 'r').",
+                shield: "Las agudas terminadas en 'r' no llevan tilde ortográfica.",
+                deku: "'Cantar' es aguda pero acaba en 'r', así que no lleva tilde."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_14",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "Las palabras como 'médico, sílaba, teléfono' son todas...",
+                options: ["Esdrújulas", "Agudas", "Llanas", "Monosílabas"],
+                correct: 0,
+                highlight: "Observa dónde llevan la tilde: mé-di-co, sí-la-ba, te-lé-fo-no.",
+                shield: "Tienen la sílaba tónica en la antepenúltima posición = Esdrújulas.",
+                deku: "Todas son esdrújulas porque la sílaba con más fuerza de voz es la antepenúltima."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_15",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Por qué 'lápiz' lleva tilde?",
+                options: [
+                    "Es llana y termina en -Z (consonante distinta de -n o -s)",
+                    "Es aguda terminada en -Z",
+                    "Es esdrújula",
+                    "Es llana terminada en vocal"
+                ],
+                correct: 0,
+                highlight: "LÁ-piz -> Penúltima sílaba + termina en 'z'.",
+                shield: "Las palabras llanas que terminan en -z se acentúan gráficamente.",
+                deku: "'Lápiz' es llana y lleva tilde porque su consonante final es la 'z'."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_16",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de estas opciones contiene SOLO palabras AGUDAS?",
+                options: ["Reloj, timón, café", "Árbol, mesa, casa", "Música, brújula, lápiz", "Camión, perro, sol"],
+                correct: 0,
+                highlight: "Comprueba que las tres palabras tengan el golpe de voz en su última sílaba.",
+                shield: "re-LOJ, ti-MÓN, ca-FÉ son todas agudas.",
+                deku: "'Reloj, timón, café' son todas agudas al tener su sílaba tónica al final."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_17",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "En la palabra 'brújula', la sílaba tónica es...",
+                options: ["BRÚ (antepenúltima)", "JU (penúltima)", "LA (última)", "No tiene sílaba tónica"],
+                correct: 0,
+                highlight: "Divide: BRÚ-ju-la. ¿Dónde está la tilde?",
+                shield: "La tilde indica directamente cuál es la sílaba tónica.",
+                deku: "La sílaba tónica es 'BRÚ', ocupando el lugar antepenúltimo."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_18",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Qué ocurre con la tilde en 'joven' frente a 'jóvenes'?",
+                options: [
+                    "'Joven' es llana terminada en -n (sin tilde) y 'jóvenes' es esdrújula (con tilde)",
+                    "Ambas llevan tilde siempre",
+                    "Ninguna lleva tilde",
+                    "'Joven' lleva tilde y 'jóvenes' no"
+                ],
+                correct: 0,
+                highlight: "Analiza el cambio de sílaba tónica al pasar al plural.",
+                shield: "JO-ven (llana en -n = sin tilde) -> JÓ-ve-nes (esdrújula = ¡con tilde!).",
+                deku: "'Joven' es llana terminada en -n (no lleva tilde), pero 'jóvenes' pasa a ser esdrújula y la exige."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_19",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "La palabra 'fácil' es...",
+                options: ["Llana con tilde", "Aguda con tilde", "Esdrújula", "Llana sin tilde"],
+                correct: 0,
+                highlight: "FÁ-cil: fuerza en la penúltima y acaba en 'l'.",
+                shield: "Penúltima sílaba + acabada en 'L' = Llana con tilde.",
+                deku: "'Fácil' es llana y lleva tilde porque no acaba ni en -n, ni en -s, ni en vocal."
+            },
+            {
+                moduleIndex: 2,
+                id: "m3_20",
+                category: "Ortografía - Agudas, Llanas y Esdrújulas",
+                question: "¿Cuál de las siguientes palabras requiere tilde ortográfica?",
+                options: ["Plátano", "Silla", "Papel", "Cuaderno"],
+                correct: 0,
+                highlight: "Busca la palabra esdrújula en el listado: PLÁ-ta-no.",
+                shield: "'Plátano' es esdrújula y las esdrújulas se acentúan siempre.",
+                deku: "'Plátano' (PLÁ-ta-no) necesita tilde obligatoriamente por ser esdrújula."
+            }
+        ];
+
+        /* -------------------------------------------------------------------------- */
+        /* APP STATE & LOGIC ENGINE                                                  */
+        /* -------------------------------------------------------------------------- */
+        class HeroAcademiaApp {
+            constructor() {
+                this.student = {
+                    name: "Izuku Midoriya",
+                    group: "6.º EP - Junta de Andalucía"
+                };
+                
+                // Module Scores & Answers Trackers
+                this.moduleProgress = [
+                    { completed: 0, correct: 0, answers: [] }, // Mod 1: Gramatica (20)
+                    { completed: 0, correct: 0, answers: [] }, // Mod 2: Literatura (20)
+                    { completed: 0, correct: 0, answers: [] }  // Mod 3: Ortografia (20)
+                ];
+
+                this.currentModuleIdx = 0;
+                this.currentQuestionIdx = 0;
+                this.currentQuestionsList = [];
+                this.selectedAnswerIdx = null;
+            }
+
+            init() {
+                console.log("My Reader Academia SdA 1 initialized.");
+            }
+
+            startApp() {
+                const nameInput = document.getElementById('input-student-name').value.trim();
+                const groupInput = document.getElementById('input-student-group').value.trim();
+
+                if (nameInput) this.student.name = nameInput;
+                if (groupInput) this.student.group = groupInput;
+
+                // Sync header
+                document.getElementById('header-student-name').innerText = this.student.name;
+                document.getElementById('header-user-info').classList.remove('hidden');
+
+                this.updateHubStats();
+                this.showScreen('hub');
+            }
+
+            showScreen(screenId) {
+                const screens = ['welcome', 'hub', 'quiz', 'report'];
+                screens.forEach(s => {
+                    const el = document.getElementById(`screen-${s}`);
+                    if (el) el.classList.add('hidden');
+                });
+
+                const target = document.getElementById(`screen-${screenId}`);
+                if (target) target.classList.remove('hidden');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateHubStats() {
+                let totalCorrect = 0;
+                let totalCompleted = 0;
+
+                this.moduleProgress.forEach((mod, idx) => {
+                    totalCorrect += mod.correct;
+                    totalCompleted += mod.completed;
+
+                    // Update module card badges
+                    const badge = document.getElementById(`m${idx+1}-status-badge`);
+                    if (badge) {
+                        badge.innerText = `${mod.completed}/20 completado`;
+                        if (mod.completed === 20) {
+                            badge.className = "bg-emerald-100 text-mha-darkgreen text-xs font-bold px-2.5 py-1 rounded border border-emerald-400";
+                        }
+                    }
+                });
+
+                const totalScorePH = totalCorrect * 50; // 50 PH per correct question
+                const pct = Math.round((totalCompleted / 60) * 100);
+
+                document.getElementById('stat-total-score').innerText = totalScorePH;
+                document.getElementById('stat-progress-pct').innerText = `${pct}%`;
+
+                // Calculate Rank
+                let rank = "Rango E (Novicio)";
+                if (totalCorrect >= 55) rank = "Rango S (Plus Ultra)";
+                else if (totalCorrect >= 45) rank = "Rango A (Héroe Pro)";
+                else if (totalCorrect >= 35) rank = "Rango B (Heroico)";
+                else if (totalCorrect >= 20) rank = "Rango C (Estudiante UA)";
+                else if (totalCorrect >= 10) rank = "Rango D (Aspirante)";
+
+                document.getElementById('hub-hero-badge').innerText = `RANGO: ${rank}`;
+                document.getElementById('header-student-rank').innerText = rank;
+            }
+
+            startModule(modIdx) {
+                this.currentModuleIdx = modIdx;
+                this.currentQuestionsList = QUIZ_DATA.filter(q => q.moduleIndex === modIdx);
+                this.currentQuestionIdx = 0;
+
+                // Update Module Title & Criterion UI
+                const titles = [
+                    "Módulo 1: Gramática y Formación de Palabras",
+                    "Módulo 2: Figuras Literarias",
+                    "Módulo 3: Ortografía y Acentuación"
+                ];
+                const criteria = [
+                    "CRIT.LCL.3.9.1 / Saber LCL.3.C (Sustantivos, Adjetivos, Afijos)",
+                    "CRIT.LCL.3.7.1 / Saber LCL.3.D (Recursos Literarios)",
+                    "CRIT.LCL.3.9.2 / Saber LCL.3.C (Reglas de Acentuación)"
+                ];
+
+                document.getElementById('quiz-module-title').innerText = titles[modIdx];
+                document.getElementById('quiz-criterion-tag').innerText = criteria[modIdx];
+
+                this.showScreen('quiz');
+                this.renderCurrentQuestion();
+            }
+
+            renderCurrentQuestion() {
+                // Hide feedback box & DUA box
+                document.getElementById('deku-feedback-box').classList.add('hidden');
+                document.getElementById('dua-help-box').classList.add('hidden');
+
+                const q = this.currentQuestionsList[this.currentQuestionIdx];
+
+                // Progress
+                const currentNum = this.currentQuestionIdx + 1;
+                document.getElementById('quiz-progress-text').innerText = `${currentNum} de 20`;
+                const pct = (currentNum / 20) * 100;
+                document.getElementById('quiz-progress-bar').style.width = `${pct}%`;
+
+                // Category Tag & Stem
+                document.getElementById('question-tag').innerText = `Categoría: ${q.category}`;
+                document.getElementById('question-text').innerText = q.question;
+
+                // Render Options
+                const optionsContainer = document.getElementById('question-options');
+                optionsContainer.innerHTML = '';
+
+                q.options.forEach((optText, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-4 rounded-xl comic-border bg-slate-50 hover:bg-emerald-50 hover:border-mha-green font-semibold text-slate-800 transition-all flex items-center justify-between group shadow-sm";
+                    btn.onclick = () => this.handleAnswerSelection(idx);
+
+                    btn.innerHTML = `
+                        <span class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-slate-200 group-hover:bg-mha-green group-hover:text-white font-comic flex items-center justify-center border border-slate-400 group-hover:border-black transition-colors">
+                                ${String.fromCharCode(65 + idx)}
+                            </span>
+                            <span>${optText}</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-slate-300 group-hover:text-mha-green transition-colors"></i>
+                    `;
+                    optionsContainer.appendChild(btn);
+                });
+            }
+
+            handleAnswerSelection(optionIdx) {
+                const q = this.currentQuestionsList[this.currentQuestionIdx];
+                const isCorrect = (optionIdx === q.correct);
+
+                // Save or update response
+                const modProgress = this.moduleProgress[this.currentModuleIdx];
+                
+                // If question wasn't completed in this session
+                if (modProgress.answers.length <= this.currentQuestionIdx) {
+                    modProgress.completed++;
+                    if (isCorrect) modProgress.correct++;
+                    modProgress.answers.push({ questionId: q.id, correct: isCorrect });
+                }
+
+                // Show Deku Feedback
+                const feedbackBox = document.getElementById('deku-feedback-box');
+                const feedbackTitle = document.getElementById('feedback-title');
+                const feedbackText = document.getElementById('feedback-text');
+
+                feedbackBox.classList.remove('hidden');
+
+                if (isCorrect) {
+                    feedbackBox.className = "p-5 rounded-xl comic-border space-y-3 bg-emerald-100 border-emerald-500 animate-fade-in";
+                    feedbackTitle.innerText = "¡ANÁLISIS DE DEKU: CORRECTO! 💥";
+                    feedbackTitle.className = "font-comic text-xl text-mha-darkgreen";
+                    feedbackText.innerText = `¡Excelente deducción! ${q.deku}`;
+                } else {
+                    feedbackBox.className = "p-5 rounded-xl comic-border space-y-3 bg-rose-100 border-rose-500 animate-fade-in";
+                    feedbackTitle.innerText = "ANÁLISIS DE DEKU: REVISIÓN DE ERROR 💡";
+                    feedbackTitle.className = "font-comic text-xl text-mha-red";
+                    feedbackText.innerText = `¡No te preocupes, el error es parte del entrenamiento! ${q.deku}`;
+                }
+
+                // Disable options after answer
+                const optionBtns = document.getElementById('question-options').querySelectorAll('button');
+                optionBtns.forEach((btn, idx) => {
+                    btn.disabled = true;
+                    if (idx === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl comic-border bg-emerald-200 border-emerald-600 font-bold text-slate-900 flex items-center justify-between shadow-sm";
+                    } else if (idx === optionIdx && !isCorrect) {
+                        btn.className = "w-full text-left p-4 rounded-xl comic-border bg-rose-200 border-rose-600 font-bold text-slate-900 flex items-center justify-between opacity-80 shadow-sm";
+                    } else {
+                        btn.className += " opacity-50 cursor-not-allowed";
+                    }
+                });
+
+                this.updateHubStats();
+            }
+
+            nextQuestion() {
+                if (this.currentQuestionIdx < this.currentQuestionsList.length - 1) {
+                    this.currentQuestionIdx++;
+                    this.renderCurrentQuestion();
+                } else {
+                    // Module Finished
+                    this.showScreen('hub');
+                }
+            }
+
+            /* --- DUA QUIRKS / DONES --- */
+            useQuirkHighlight() {
+                const q = this.currentQuestionsList[this.currentQuestionIdx];
+                this.showDuaHelp("🔍 Visión Analítica (Resalte de Clave)", q.highlight);
+            }
+
+            useQuirkShield() {
+                const q = this.currentQuestionsList[this.currentQuestionIdx];
+                this.showDuaHelp("🛡️ Escudo Gramatical (Esquema del Saber)", q.shield);
+            }
+
+            useQuirkDeku() {
+                const q = this.currentQuestionsList[this.currentQuestionIdx];
+                this.showDuaHelp("💡 Impulso Adaptativo de Deku", `Pista especial: ${q.highlight} Recuérdalo: ${q.shield}`);
+            }
+
+            showDuaHelp(title, text) {
+                const box = document.getElementById('dua-help-box');
+                document.getElementById('dua-help-title').innerText = title;
+                document.getElementById('dua-help-text').innerText = text;
+                box.classList.remove('hidden');
+            }
+
+            /* --- MAPS MODAL --- */
+            openMapModal() {
+                document.getElementById('modal-map').classList.remove('hidden');
+            }
+
+            closeMapModal() {
+                document.getElementById('modal-map').classList.add('hidden');
+            }
+
+            switchMapTab(tabKey) {
+                ['gram', 'lit', 'ort'].forEach(t => {
+                    document.getElementById(`map-content-${t}`).classList.add('hidden');
+                    const btn = document.getElementById(`tab-btn-${t}`);
+                    if (btn) btn.className = "bg-slate-200 text-slate-700 font-comic px-4 py-2 rounded-lg comic-border text-sm";
+                });
+
+                document.getElementById(`map-content-${tabKey}`).classList.remove('hidden');
+                
+                const activeColors = { gram: 'bg-mha-green', lit: 'bg-mha-purple', ort: 'bg-mha-red' };
+                document.getElementById(`tab-btn-${tabKey}`).className = `${activeColors[tabKey]} text-white font-comic px-4 py-2 rounded-lg comic-border text-sm`;
+            }
+
+            /* --- FINAL REPORT GENERATOR (Junta de Andalucía) --- */
+            generateFinalReport() {
+                document.getElementById('report-student-name').innerText = this.student.name;
+                document.getElementById('report-student-group').innerText = this.student.group;
+
+                const today = new Date();
+                document.getElementById('report-date').innerText = today.toLocaleDateString('es-ES');
+
+                // Criterion Scores
+                const c1 = this.moduleProgress[0].correct; // max 20 -> convert to /10 scale
+                const c2 = this.moduleProgress[1].correct;
+                const c3 = this.moduleProgress[2].correct;
+
+                const note1 = ((c1 / 20) * 10).toFixed(1);
+                const note2 = ((c2 / 20) * 10).toFixed(1);
+                const note3 = ((c3 / 20) * 10).toFixed(1);
+
+                document.getElementById('report-score-c1').innerText = `${note1} / 10`;
+                document.getElementById('report-bar-c1').style.width = `${(c1 / 20) * 100}%`;
+
+                document.getElementById('report-score-c2').innerText = `${note2} / 10`;
+                document.getElementById('report-bar-c2').style.width = `${(c2 / 20) * 100}%`;
+
+                document.getElementById('report-score-c3').innerText = `${note3} / 10`;
+                document.getElementById('report-bar-c3').style.width = `${(c3 / 20) * 100}%`;
+
+                // Global Grade
+                const globalGrade = ((parseFloat(note1) + parseFloat(note2) + parseFloat(note3)) / 3).toFixed(1);
+                document.getElementById('report-final-grade').innerText = globalGrade;
+
+                let qual = "INSUFICIENTE";
+                let rank = "Rango E (Novicio)";
+                if (globalGrade >= 9.0) { qual = "SOBRESALIENTE"; rank = "Rango S (Plus Ultra)"; }
+                else if (globalGrade >= 7.0) { qual = "NOTABLE"; rank = "Rango A (Héroe Pro)"; }
+                else if (globalGrade >= 6.0) { qual = "BIEN"; rank = "Rango B (Heroico)"; }
+                else if (globalGrade >= 5.0) { qual = "SUFICIENTE"; rank = "Rango C (Estudiante UA)"; }
+
+                document.getElementById('report-final-qual').innerText = qual;
+                document.getElementById('report-hero-rank').innerText = rank;
+
+                this.showScreen('report');
+            }
+        }
+
+        // Global App Instance
+        let app;
+        window.onload = function() {
+            app = new HeroAcademiaApp();
+            app.init();
+        };
+    </script>
+</body>
+</html>
